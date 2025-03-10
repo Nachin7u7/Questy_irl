@@ -1,0 +1,212 @@
+/* Estilos para el contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para el título */
+.container h1 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la lista de misiones */
+#missions-list {
+    margin-bottom: 20px;
+}
+
+.mission {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mission p {
+    margin: 0;
+}
+
+.mission button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.mission button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para el botón "Añadir Misión" */
+#add-mission {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#add-mission:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para el inventario */
+#inventory {
+    margin-top: 20px;
+}
+
+.item {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.item p {
+    margin: 0;
+    color: white;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro */
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: white;
+}
+
+#mission-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+}
+
+#submit-mission {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#submit-mission:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para la información del personaje */
+/* Estilos para la información del personaje */
+#character-info {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#character-info p {
+    margin: 5px 0;
+    color: white;
+}
+
+/* Estilos para el texto de la última experiencia ganada */
+.xp-gained {
+    color: #4CAF50;
+    /* Verde */
+    font-weight: bold;
+}
+
+/* Estilos para el textarea en el modal */
+#mission-description {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    resize: vertical;
+    /* Permite redimensionar verticalmente */
+}
+
+/* Estilos para el equipamiento */
+#equipment {
+    margin-top: 20px;
+}
+
+.equipment-slot {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.equipment-slot p {
+    margin: 0;
+    color: white;
+}
+
+.equipment-slot button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.equipment-slot button:hover {
+    background-color: #45a049;
+}
