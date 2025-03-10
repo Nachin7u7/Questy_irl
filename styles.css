@@ -1,9 +1,25 @@
-/* Estilos para el contenedor principal */
+/* Estilos para el cuerpo de la página */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('elwynn.jpg');
+    /* Ruta de la imagen de fondo */
+    background-size: 100% 100%;
+    /* Ajustar la imagen al tamaño de la ventana */
+    background-position: center;
+    /* Centrar la imagen */
+    background-repeat: no-repeat;
+    /* Evitar que la imagen se repita */
+    font-family: Arial, sans-serif;
+    color: black;
+    min-height: 100vh;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #2a2a2a;
+    background-color: rgba(42, 42, 42, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     color: white;
@@ -20,6 +36,53 @@
 /* Estilos para la lista de misiones */
 #missions-list {
     margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    /* Fuente más legible */
+}
+
+#missions-list p {
+    margin: 5px 0;
+    /* Espaciado entre párrafos */
+    line-height: 1.5;
+    /* Altura de línea para mejor legibilidad */
+}
+
+#missions-list p strong {
+    font-size: 1.1em;
+    /* Tamaño de fuente para el título de la misión */
+    color: white;
+    /* Color oscuro para el título */
+}
+
+#missions-list p em {
+    color: #555;
+    /* Color más suave para la recompensa */
+    font-style: italic;
+    /* Texto en cursiva */
+}
+
+#missions-list .complete-button {
+    margin-top: 10px;
+    /* Espacio arriba del botón */
+    padding: 5px 10px;
+    /* Padding para el botón */
+    background-color: #4CAF50;
+    /* Color de fondo verde */
+    color: white;
+    /* Texto en blanco */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cursor tipo pointer */
+    font-size: 0.9em;
+    /* Tamaño de fuente del botón */
+}
+
+#missions-list .complete-button:hover {
+    background-color: #45a049;
+    /* Color de fondo al pasar el mouse */
 }
 
 .mission {
