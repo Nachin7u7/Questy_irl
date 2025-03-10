@@ -248,3 +248,41 @@ body {
     height: auto;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
+
+.equip-button {
+    background-color: #4CAF50;
+    /* Verde brillante */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.equip-button:hover {
+    background-color: #45a049;
+    /* Verde más oscuro al pasar el mouse */
+    transform: scale(1.05);
+    /* Efecto de escala al pasar el mouse */
+}
+
+.equip-button:active {
+    background-color: #3d8b40;
+    /* Verde aún más oscuro al hacer clic */
+    transform: scale(0.95);
+    /* Efecto de presión al hacer clic */
+}
+
+.equip-button:focus {
+    outline: none;
+    /* Elimina el borde predeterminado al enfocar */
+    box-shadow: 0 0 0 2px rgba(72, 207, 173, 0.5);
+    /* Borde de enfoque sutil */
+}
