@@ -63,6 +63,58 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUI();
     }
 
+    function parseTextToHTML(text) {
+        // Dividir el texto en líneas
+        const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+        let html = '';
+        let inList = false; // Para controlar si estamos dentro de una lista
+        let paragraphIndex = 0; // Para llevar un índice de los párrafos
+
+        // Colores predefinidos para los párrafos (contrastantes con fondo gris)
+        const colors = [
+            '#FFD700', // Dorado
+            '#87CEEB', // Azul claro
+            '#98FB98', // Verde pastel
+            '#FFA07A', // Salmón
+            '#DDA0DD', // Ciruela
+            '#FF6347', // Tomate
+        ];
+
+        lines.forEach(line => {
+            // Detectar si la línea es un título (termina con ":")
+            if (line.endsWith(':')) {
+                html += `<h2>${line}</h2>\n`;
+            }
+            // Detectar si la línea es un elemento de lista (comienza con "-" o es un objetivo)
+            else if (line.startsWith('-') || /^\d+\./.test(line) || line.startsWith('Recolectar')) {
+                if (!inList) {
+                    html += '<ul>\n'; // Abrir la lista si no está abierta
+                    inList = true;
+                }
+                html += `<li>${line.replace(/^- /, '').replace(/^\d+\. /, '')}</li>\n`; // Eliminar el guion o número inicial
+            }
+            // Si no es un título ni un elemento de lista, es un párrafo
+            else {
+                if (inList) {
+                    html += '</ul>\n'; // Cerrar la lista si estaba abierta
+                    inList = false;
+                }
+                // Asignar un color basado en el índice del párrafo
+                const color = colors[paragraphIndex % colors.length]; // Ciclo de colores
+                html += `<p style="color: ${color};">${line}</p>\n`;
+                paragraphIndex++; // Incrementar el índice de párrafos
+            }
+        });
+
+        // Cerrar la lista si el texto termina con una lista
+        if (inList) {
+            html += '</ul>\n';
+        }
+
+        return html;
+    }
+
     function equipItem(item) {
         const slot = item.slot;
         if (equipment[slot]) {
@@ -91,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             missionElement.className = 'mission';
             missionElement.innerHTML = `
                 <p><strong>[${character.level}] ${mission.name}</strong></p>
-                <p style="margin-left: 20px;">${mission.description}</p>
+                <p style="margin-left: 20px;">${parseTextToHTML(mission.description)}</p>
                 <p style="margin-left: 20px;"><em>Recompensa: ${rewardText}</em></p>
                 <button class="complete-button" data-index="${index}">Completar</button>
             `;
