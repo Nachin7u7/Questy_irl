@@ -4,8 +4,11 @@
 
 ## Características
 
+  ![Captura de pantalla de Questy_irl](image.png)  
+  *Captura de pantalla de la interfaz de Questy_irl.*
+
 - **Interfaz de usuario personalizada**: Utiliza `index.html` y `styles.css` para definir la estructura y el estilo de la aplicación.
-- **Lógica de negocio**: Implementada en `main.js`, `preload.js` y `renderer.js` para gestionar la funcionalidad de la aplicación.
+- **Lógica**: Implementada en `main.js`, `preload.js` y `renderer.js` para gestionar la funcionalidad de la aplicación.
 - **Gestión de dependencias**: Utiliza `package.json` y `package-lock.json` para manejar las dependencias del proyecto.
 
 ## Requisitos previos
