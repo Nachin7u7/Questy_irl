@@ -17,7 +17,7 @@ function createWindow() {
     });
 
     mainWindow.loadFile('index.html');
-    // mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo
+    mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo
 }
 
 // Manejar la solicitud de diálogo desde el renderizador

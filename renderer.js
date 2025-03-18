@@ -186,8 +186,7 @@ function equipItem(item) {
 function updateUI() {
     characterLevel.textContent = character.level;
     characterXP.textContent = character.xp;
-    lastXPGained.textContent = `+${character.lastXPGained
-        } XP`;
+    lastXPGained.textContent = `+${character.lastXPGained} XP`;
 
     const requiredXP = getRequiredXP(character.level);
     document.getElementById('required-xp').textContent = requiredXP;
@@ -195,18 +194,15 @@ function updateUI() {
     missionsList.innerHTML = '';
     missions.forEach((mission, index) => {
         const rewardText = mission.reward.type === 'xp'
-            ? `${mission.reward.value
-            } XP`
-            : `${mission.reward.name
-            } (${mission.reward.rarity
-            })`;
+            ? `${mission.reward.value} XP`
+            : `${mission.reward.name} (${mission.reward.rarity})`;
 
         const missionElement = document.createElement('div');
         missionElement.className = 'mission';
         missionElement.innerHTML = `
-            <p><strong>[${character.level}]${mission.name}</strong></p>
-            <p style="margin-left: 20px;">${parseTextToHTML(mission.description)}</p>
-            <p style="margin-left: 20px;"><em>Recompensa: ${rewardText}</em></p>
+            <p><strong>[${character.level}] ${mission.name}</strong></p>
+            <p class="mission-description">${parseTextToHTML(mission.description)}</p>
+            <p class="mission-reward"><em>Recompensa: ${rewardText}</em></p>
             <button class="complete-button" data-index="${index}">Completar</button>
         `;
         missionsList.appendChild(missionElement);
