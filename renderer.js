@@ -182,6 +182,33 @@ function equipItem(item) {
     updateUI();
     saveState(); // Guardar el estado después de equipar un ítem
 }
+
+// Función para reiniciar los datos
+function resetData() {
+    // Borrar los datos de localStorage
+    localStorage.removeItem('questyState');
+
+    // Reiniciar el estado de la aplicación
+    missions = [];
+    inventory = [];
+    equipment = { weapon: null, armor: null, accessory: null };
+    character = { level: 1, xp: 0, lastXPGained: 0 };
+
+    // Actualizar la interfaz
+    updateUI();
+
+    // Mostrar un mensaje de confirmación
+    alert('Los datos han sido reiniciados. ¡Comienza de nuevo!');
+}
+
+// Asignar evento al botón de reinicio
+document.getElementById('reset-data').addEventListener('click', () => {
+    const confirmReset = confirm('¿Estás seguro de que quieres reiniciar todos los datos? Esta acción no se puede deshacer.');
+    if (confirmReset) {
+        resetData();
+    }
+});
+
 // Función para actualizar la interfaz
 function updateUI() {
     characterLevel.textContent = character.level;
@@ -203,11 +230,23 @@ function updateUI() {
             <p><strong>[${character.level}] ${mission.name}</strong></p>
             <p class="mission-description">${parseTextToHTML(mission.description)}</p>
             <p class="mission-reward"><em>Recompensa: ${rewardText}</em></p>
-            <button class="complete-button" data-index="${index}">Completar</button>
+            <div class="mission-buttons">
+                <button class="abandon-button" data-index="${index}">Abandonar</button>
+                <button class="complete-button" data-index="${index}">Completar</button>
+            </div>
         `;
         missionsList.appendChild(missionElement);
     });
 
+    // Evento para el botón de abandonar
+    document.querySelectorAll('.abandon-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = button.getAttribute('data-index');
+            abandonMission(index);
+        });
+    });
+
+    // Evento para el botón de completar
     document.querySelectorAll('.complete-button').forEach(button => {
         button.addEventListener('click', () => {
             const index = button.getAttribute('data-index');
@@ -215,14 +254,13 @@ function updateUI() {
         });
     });
 
+    // Resto del código de updateUI...
     inventoryList.innerHTML = '';
     inventory.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className = 'item';
         itemElement.innerHTML = `
-            <p>${item.name
-            } (${item.rarity
-            })</p>
+            <p>${item.name} (${item.rarity})</p>
             <button class="equip-button" data-index="${index}">Equipar</button>
         `;
         inventoryList.appendChild(itemElement);
@@ -231,24 +269,17 @@ function updateUI() {
     document.querySelectorAll('.equip-button').forEach(button => {
         button.addEventListener('click', () => {
             const index = button.getAttribute('data-index');
-            equipItem(inventory[index
-            ]);
+            equipItem(inventory[index]);
         });
     });
 
     equipmentList.innerHTML = '';
     for (const slot in equipment) {
-        if (equipment[slot
-        ]) {
+        if (equipment[slot]) {
             const slotElement = document.createElement('div');
             slotElement.className = 'equipment-slot';
             slotElement.innerHTML = `
-                <p>${slot
-                }: ${equipment[slot
-                ].name
-                } (${equipment[slot
-                ].rarity
-                })</p>
+                <p>${slot}: ${equipment[slot].name} (${equipment[slot].rarity})</p>
                 <button class="unequip-button" data-slot="${slot}">Desequipar</button>
             `;
             equipmentList.appendChild(slotElement);
@@ -258,8 +289,7 @@ function updateUI() {
     document.querySelectorAll('.unequip-button').forEach(button => {
         button.addEventListener('click', () => {
             const slot = button.getAttribute('data-slot');
-            equipment[slot
-            ] = null;
+            equipment[slot] = null;
             updateUI();
             saveState(); // Guardar el estado después de desequipar un ítem
         });
@@ -295,6 +325,16 @@ submitMissionButton.addEventListener('click', () => {
         missionModal.style.display = 'none';
     }
 });
+
+// Función para abandonar una misión
+function abandonMission(index) {
+    const confirmAbandon = confirm('¿Estás seguro de que quieres abandonar esta misión? No recibirás ninguna recompensa.');
+    if (confirmAbandon) {
+        missions.splice(index, 1);
+        updateUI();
+        saveState(); // Guardar el estado después de abandonar una misión
+    }
+}
 
 // Inicializar la interfaz
 updateUI();

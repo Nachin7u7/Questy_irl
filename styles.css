@@ -48,29 +48,14 @@ body {
     font-style: italic;
 }
 
-#missions-list .complete-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
-#missions-list .complete-button:hover {
-    background-color: #45a049;
-}
-
 .mission {
     background-color: #333;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
     display: flex;
-    flex-direction: column; /* Cambiamos a dirección vertical */
-    gap: 10px; /* Espacio entre elementos */
+    flex-direction: column;
+    gap: 10px;
 }
 
 .mission p {
@@ -80,23 +65,27 @@ body {
 
 .mission strong {
     font-size: 1.1em;
-    color: #4CAF50; /* Color verde para el nivel y nombre de la misión */
+    color: #4CAF50;
 }
 
 .mission .mission-reward {
-    margin-left: 20px; /* Sangría para la recompensa */
-    color: #FFD700; /* Color dorado para la recompensa */
+    margin-left: 20px;
+    color: #FFD700;
 }
 
-.mission .complete-button:hover {
-    background-color: #45a049;
-}
-
-.mission .complete-button {
-    align-self: flex-start; /* Alinear el botón a la izquierda */
+.mission-buttons {
+    display: flex;
+    justify-content: flex-end;
+    /* Alinea los botones a la derecha */
+    gap: 10px;
+    /* Espacio entre los botones */
     margin-top: 10px;
+}
+
+.abandon-button {
     padding: 5px 10px;
-    background-color: #4CAF50;
+    background-color: #ff6347;
+    /* Rojo */
     color: white;
     border: none;
     border-radius: 5px;
@@ -104,17 +93,35 @@ body {
     font-size: 0.9em;
 }
 
-.mission button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.abandon-button:hover {
+    background-color: #ff4500;
+    /* Rojo más oscuro al pasar el mouse */
 }
 
-.mission button:hover {
+.abandon-button:active {
+    background-color: #cc3700;
+    /* Rojo aún más oscuro al hacer clic */
+}
+
+.complete-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.complete-button:hover {
     background-color: #45a049;
+    /* Verde más oscuro al pasar el mouse */
+}
+
+.complete-button:active {
+    background-color: #3d8b40;
+    /* Verde aún más oscuro al hacer clic */
 }
 
 #add-mission {
@@ -278,7 +285,6 @@ body {
 
 .equip-button {
     background-color: #4CAF50;
-    /* Verde brillante */
     border: none;
     color: white;
     padding: 8px 16px;
@@ -295,21 +301,38 @@ body {
 
 .equip-button:hover {
     background-color: #45a049;
-    /* Verde más oscuro al pasar el mouse */
     transform: scale(1.05);
-    /* Efecto de escala al pasar el mouse */
 }
 
 .equip-button:active {
     background-color: #3d8b40;
-    /* Verde aún más oscuro al hacer clic */
     transform: scale(0.95);
-    /* Efecto de presión al hacer clic */
 }
 
 .equip-button:focus {
     outline: none;
-    /* Elimina el borde predeterminado al enfocar */
     box-shadow: 0 0 0 2px rgba(72, 207, 173, 0.5);
-    /* Borde de enfoque sutil */
+}
+
+.reset-button {
+    position: absolute;
+    top: 10px;
+    right: 70px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button:hover {
+    background-color: #ff4500;
+}
+
+.reset-button:active {
+    background-color: #cc3700;
 }
