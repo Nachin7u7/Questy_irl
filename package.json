@@ -1,18 +1,35 @@
 {
-  "name": "todo-wow-missions",
+  "name": "Questy_IRL",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ricardo Valencia",
   "license": "ISC",
-  "description": "",
+  "description": "Un gestor de tareas con temática de World of Warcraft.",
   "devDependencies": {
-    "electron": "^35.0.0"
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2"
   },
   "dependencies": {
     "electron-prompt": "^1.7.0"
+  },
+  "build": {
+    "appId": "com.example.todo-wow-missions",
+    "productName": "Questy IRL",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

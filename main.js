@@ -12,7 +12,8 @@ function createWindow() {
             contextIsolation: true, // Asegura que el contexto esté aislado
             enableRemoteModule: false, // Desactiva el módulo remoto por seguridad
         },
-        icon: path.join(__dirname, 'questy_logo.png')
+        icon: path.join(__dirname, 'questy_logo.png'),
+        icon: path.join(__dirname, 'icon.ico')
     });
 
     mainWindow.loadFile('index.html');
