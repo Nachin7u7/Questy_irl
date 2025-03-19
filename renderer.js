@@ -11,7 +11,16 @@ const closeModal = document.querySelector('.close');
 const characterLevel = document.getElementById('character-level');
 const characterXP = document.getElementById('character-xp');
 const lastXPGained = document.getElementById('last-xp-gained');
+const settingsButton = document.getElementById('settings-button');
+const languageButton = document.getElementById('language-button');
+const settingsModal = document.getElementById('settings-modal');
+const closeSettingsModal = document.querySelector('.close-settings');
+const languageModal = document.getElementById('language-modal');
+const closeLanguageModal = document.querySelector('.close-language');
+const languageSpanishButton = document.getElementById('language-spanish');
+const languageEnglishButton = document.getElementById('language-english');
 
+var auxiliarString = "";
 // Inicializar arrays y objetos
 let missions = [];
 let inventory = [];
@@ -22,6 +31,62 @@ let character = {
     level: 1, xp: 0, lastXPGained: 0
 };
 
+
+let texts = {};
+
+async function loadTexts() {
+    const response = await fetch('languages.json');
+    texts = await response.json();
+    const savedLanguage = localStorage.getItem('selectedLanguage');
+    if (savedLanguage) {
+        changeLanguage(savedLanguage);
+    } else {
+        updateUI();
+    }
+}
+
+loadTexts();
+
+function changeLanguage(language) {
+    localStorage.setItem('selectedLanguage', language); // Save selected language
+    // Actualizar textos en la interfaz
+    document.getElementById('settings-button').textContent = texts[language].settings;
+    document.querySelector('h1').textContent = texts[language].missions;
+    document.getElementById('add-mission').textContent = texts[language].addMission;
+    document.querySelector('h2:nth-of-type(1)').textContent = texts[language].inventory;
+    document.querySelector('h2:nth-of-type(2)').textContent = texts[language].equipment;
+    document.querySelector('#mission-modal h2').textContent = texts[language].addMissionModalTitle;
+    document.getElementById('mission-name').placeholder = texts[language].missionNamePlaceholder;
+    document.getElementById('mission-description').placeholder = texts[language].missionDescriptionPlaceholder;
+    document.getElementById('submit-mission').textContent = texts[language].submitMission;
+    document.querySelector('#language-modal h2').textContent = texts[language].selectLanguage;
+    document.getElementById('reset-data').textContent = texts[language].resetData;
+    document.getElementById('language-button').textContent = texts[language].language;
+    document.querySelector('#settings-modal h2').textContent = texts[language].settings;
+    document.querySelector('#language-modal h2').textContent = texts[language].selectLanguage;
+    document.getElementById('language-spanish').textContent = texts[language].spanish;
+    document.getElementById('language-english').textContent = texts[language].english;
+
+    // Update character info texts
+    document.getElementById('character-level-text').textContent = texts[language].level + ":";
+    document.getElementById('character-xp-text').textContent = texts[language].experience + ":";
+    document.getElementById('required-xp-text').textContent = texts[language].requiredXP + ":";
+
+    document.querySelectorAll('.abandon-button').forEach(button => {
+        button.textContent = texts[language].abandon;
+    });
+    document.querySelectorAll('.complete-button').forEach(button => {
+        button.textContent = texts[language].complete;
+    });
+    document.querySelectorAll('.equip-button').forEach(button => {
+        button.textContent = texts[language].equip;
+    });
+    document.querySelectorAll('.unequip-button').forEach(button => {
+        button.textContent = texts[language].unequip;
+    });
+    auxiliarString = texts[language].requiredXP + ":";
+    updateUI(); // Ensure UI is updated with new language
+}
 
 function parseTextToHTML(text) {
     // Dividir el texto en líneas
@@ -105,42 +170,54 @@ function loadState() {
 function getRequiredXP(level) {
     return 100 * Math.pow(2.5, level - 1);
 }
+
+let rewards = []; // Variable global para almacenar las recompensas
+
+// Función para cargar las recompensas desde el archivo JSON
+async function loadRewards() {
+    try {
+        const response = await fetch('rewards.json');
+        rewards = await response.json();
+    } catch (error) {
+        console.error('Error al cargar las recompensas:', error);
+    }
+}
+
+// Llamar a la función para cargar las recompensas al iniciar la aplicación
+loadRewards().then(() => {
+    console.log('Recompensas cargadas:', rewards);
+});
+
 // Función para generar una recompensa aleatoria
 function getRandomReward() {
-    const rewards = [
-        {
-            type: 'xp', value: parseInt(Math.random() * 100) + 50, rarity: 'common'
-        },
-        {
-            type: 'item', name: 'Espada de Hierro', slot: 'weapon', rarity: 'common'
-        },
-        {
-            type: 'item', name: 'Escudo de Plata', slot: 'weapon', rarity: 'rare'
-        },
-        {
-            type: 'item', name: 'Armadura de Dragón', slot: 'armor', rarity: 'epic'
-        },
-        {
-            type: 'item', name: 'Martillo del Trueno', slot: 'weapon', rarity: 'legendary'
-        },
-        {
-            type: 'item', name: 'Anillo de Poder', slot: 'accessory', rarity: 'rare'
-        },
-    ];
+    if (rewards.length === 0) {
+        console.error('No se han cargado las recompensas.');
+        return null;
+    }
+
     const random = Math.random();
-    if (random < 0.6) return rewards[
-        0
-    ];
-    else if (random < 0.9) return rewards[
-        1
-    ];
-    else if (random < 0.98) return rewards[
-        2
-    ];
-    else return rewards[
-        3
-    ];
+    let selectedReward;
+
+    if (random < 0.6) {
+        // 60% de probabilidad: XP
+        selectedReward = rewards.find(reward => reward.type === 'xp');
+        if (selectedReward) {
+            selectedReward.value = parseInt(Math.random() * 100) + 50; // Generar valor aleatorio de XP
+        }
+    } else if (random < 0.9) {
+        // 30% de probabilidad: Ítem común
+        selectedReward = rewards.find(reward => reward.type === 'item' && reward.rarity === 'common');
+    } else if (random < 0.98) {
+        // 8% de probabilidad: Ítem raro
+        selectedReward = rewards.find(reward => reward.type === 'item' && reward.rarity === 'rare');
+    } else {
+        // 2% de probabilidad: Ítem épico o legendario
+        selectedReward = rewards.find(reward => reward.type === 'item' && (reward.rarity === 'epic' || reward.rarity === 'legendary'));
+    }
+
+    return selectedReward || rewards[0]; // Si no se encuentra ninguna recompensa, devolver la primera
 }
+
 // Función para completar una misión
 function completeMission(index) {
     const reward = missions[index
@@ -198,12 +275,45 @@ function resetData() {
     updateUI();
 
     // Mostrar un mensaje de confirmación
-    alert('Los datos han sido reiniciados. ¡Comienza de nuevo!');
+    const selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    alert(texts[selectedLanguage].dataReset);
 }
 
-// Asignar evento al botón de reinicio
+languageSpanishButton.addEventListener('click', () => {
+    changeLanguage('es');
+    alert("Idioma cambiado a Español");
+    languageModal.style.display = 'none';
+});
+
+languageEnglishButton.addEventListener('click', () => {
+    changeLanguage('en');
+    alert("Language changed to English");
+    languageModal.style.display = 'none';
+});
+
+// Asignar evento al botón de configuración
+settingsButton.addEventListener('click', () => {
+    settingsModal.style.display = 'block';
+});
+
+// Ocultar el modal de configuración al hacer clic en la "X"
+closeSettingsModal.addEventListener('click', () => {
+    settingsModal.style.display = 'none';
+});
+
+// Mostrar el modal de selección de idioma al hacer clic en el botón de idioma
+languageButton.addEventListener('click', () => {
+    languageModal.style.display = 'block';
+});
+
+// Ocultar el modal de selección de idioma al hacer clic en la "X"
+closeLanguageModal.addEventListener('click', () => {
+    languageModal.style.display = 'none';
+});
+
+// Mover el evento del botón de reinicio dentro del modal de configuración
 document.getElementById('reset-data').addEventListener('click', () => {
-    const confirmReset = confirm('¿Estás seguro de que quieres reiniciar todos los datos? Esta acción no se puede deshacer.');
+    const confirmReset = confirm(texts[localStorage.getItem('selectedLanguage')].confirmReset);
     if (confirmReset) {
         resetData();
     }
@@ -216,7 +326,16 @@ function updateUI() {
     lastXPGained.textContent = `+${character.lastXPGained} XP`;
 
     const requiredXP = getRequiredXP(character.level);
-    document.getElementById('required-xp').textContent = requiredXP;
+    const requiredXPElement = document.getElementById('required-xp');
+    if (requiredXPElement) {
+        requiredXPElement.textContent = requiredXP;
+    }
+
+    // Update character info texts with real-time data
+    document.getElementById('character-level-text').appendChild(characterLevel);
+    document.getElementById('character-xp-text').appendChild(characterXP);
+    document.getElementById('character-xp-text').appendChild(lastXPGained);
+    document.getElementById('required-xp-text').textContent = auxiliarString + requiredXP;
 
     missionsList.innerHTML = '';
     missions.forEach((mission, index) => {
@@ -240,10 +359,10 @@ function updateUI() {
         missionContent.className = `mission-content ${mission.collapsed ? 'collapsed' : 'expanded'}`;
         missionContent.innerHTML = `
             <p class="mission-description">${parseTextToHTML(mission.description)}</p>
-            <p class="mission-reward"><em>Recompensa: ${rewardText}</em></p>
+            <p class="mission-reward"><em>${texts[localStorage.getItem('selectedLanguage')].reward}: ${rewardText}</em></p>
             <div class="mission-buttons">
-                <button class="abandon-button" data-index="${index}">Abandonar</button>
-                <button class="complete-button" data-index="${index}">Completar</button>
+            <button class="abandon-button" data-index="${index}">${texts[localStorage.getItem('selectedLanguage')].abandon}</button>
+            <button class="complete-button" data-index="${index}">${texts[localStorage.getItem('selectedLanguage')].complete}</button>
             </div>
         `;
 
@@ -270,7 +389,7 @@ function updateUI() {
         itemElement.className = 'item';
         itemElement.innerHTML = `
             <p>${item.name} (${item.rarity})</p>
-            <button class="equip-button" data-index="${index}">Equipar</button>
+            <button class="equip-button" data-index="${index}">${texts[localStorage.getItem('selectedLanguage')].equip}</button>
         `;
         inventoryList.appendChild(itemElement);
     });
@@ -289,7 +408,7 @@ function updateUI() {
             slotElement.className = 'equipment-slot';
             slotElement.innerHTML = `
                 <p>${slot}: ${equipment[slot].name} (${equipment[slot].rarity})</p>
-                <button class="unequip-button" data-slot="${slot}">Desequipar</button>
+                <button class="unequip-button" data-slot="${slot}">${texts[localStorage.getItem('selectedLanguage')].unequip}</button>
             `;
             equipmentList.appendChild(slotElement);
         }
@@ -352,7 +471,7 @@ submitMissionButton.addEventListener('click', () => {
 
 // Función para abandonar una misión
 function abandonMission(index) {
-    const confirmAbandon = confirm('¿Estás seguro de que quieres abandonar esta misión? No recibirás ninguna recompensa.');
+    const confirmAbandon = confirm(texts[localStorage.getItem('selectedLanguage')].confirmAbandon);
     if (confirmAbandon) {
         missions.splice(index, 1);
         updateUI();

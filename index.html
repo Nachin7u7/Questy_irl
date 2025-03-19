@@ -10,17 +10,16 @@
 
 <body>
     <div class="container">
+        <button id="settings-button" class="settings-button">Configuración</button>
         <h1>Misiones</h1>
-        <img src="questionMark.png" alt="Logo" class="question-mark-logo">
-
-        <!-- Botón para reiniciar los datos -->
-        <button id="reset-data" class="reset-button">Reiniciar Datos</button>
+        <a href="https://github.com/Nachin7u7/Questy_irl" target="_blank">
+            <img src="questionMark.png" alt="Logo" class="question-mark-logo">
+        </a>
 
         <div id="character-info">
-            <p>Nivel: <span id="character-level">1</span></p>
-            <p>Experiencia: <span id="character-xp">0</span> XP <span id="last-xp-gained" class="xp-gained">+0 XP</span>
-            </p>
-            <p>Experiencia requerida para el siguiente nivel: <span id="required-xp">100</span> XP</p>
+            <p id="character-level-text">Nivel: <span id="character-level">1</span></p>
+            <p id="character-xp-text">Experiencia: <span id="character-xp">0</span> XP <span id="last-xp-gained" class="xp-gained">+0 XP</span></p>
+            <p id="required-xp-text">Experiencia requerida para el siguiente nivel: <span id="required-xp">100</span> XP</p>
         </div>
         <div id="missions-list">
         </div>
@@ -42,6 +41,38 @@
             <button id="submit-mission">Añadir</button>
         </div>
     </div>
+
+    <!-- Modal de Configuración -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-settings">&times;</span>
+            <h2>Configuración</h2>
+            <ul style="list-style-type: none; padding: 0; text-align: center;">
+                <li style="margin-bottom: 10px; display: flex; justify-content: center;">
+                    <button id="language-button" class="language-button">Idioma</button>
+                </li>
+                <li style="margin-bottom: 10px; display: flex; justify-content: center;">
+                    <button id="reset-data" class="reset-button">Reiniciar Datos</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal de Selección de Idioma -->
+<div id="language-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-language">&times;</span>
+        <h2>Seleccionar Idioma</h2>
+        <ul style="list-style-type: none; padding: 0; text-align: center;">
+            <li style="margin-bottom: 10px; display: flex; justify-content: center;">
+                <button id="language-spanish" class="language-option-button">Español</button>
+            </li>
+            <li style="margin-bottom: 10px; display: flex; justify-content: center;">
+                <button id="language-english" class="language-option-button">Inglés</button>
+            </li>
+        </ul>
+    </div>
+</div>
 
     <script src="renderer.js"></script>
 </body>

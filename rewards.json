@@ -1,0 +1,157 @@
+[
+    {
+        "type": "xp",
+        "value": "random(50, 150)",
+        "rarity": "common"
+    },
+    {
+        "type": "item",
+        "name": "Espada de Hierro",
+        "slot": "weapon",
+        "rarity": "common"
+    },
+    {
+        "type": "item",
+        "name": "Escudo de Plata",
+        "slot": "weapon",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Armadura de Dragón",
+        "slot": "armor",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Martillo del Trueno",
+        "slot": "weapon",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Anillo de Poder",
+        "slot": "accessory",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Daga de Sombras",
+        "slot": "weapon",
+        "rarity": "uncommon"
+    },
+    {
+        "type": "item",
+        "name": "Botas de Mercurio",
+        "slot": "boots",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Casco del Centinela",
+        "slot": "helmet",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Guantes de Asesino",
+        "slot": "gloves",
+        "rarity": "uncommon"
+    },
+    {
+        "type": "item",
+        "name": "Báculo Arcano",
+        "slot": "weapon",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Cinturón de Titanio",
+        "slot": "belt",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Collar de la Fortuna",
+        "slot": "accessory",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Orbe de los Antiguos",
+        "slot": "artifact",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Espada de la Luz",
+        "slot": "weapon",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Casco de la Eternidad",
+        "slot": "helmet",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Guantes de Fuego",
+        "slot": "gloves",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Armadura de Cristal",
+        "slot": "armor",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Botas del Relámpago",
+        "slot": "boots",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Escudo del Guardián",
+        "slot": "shield",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Cinturón del Guerrero",
+        "slot": "belt",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Anillo del Dragón",
+        "slot": "accessory",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Espada del Caído",
+        "slot": "weapon",
+        "rarity": "legendary"
+    },
+    {
+        "type": "item",
+        "name": "Hombreras de la Tormenta",
+        "slot": "shoulders",
+        "rarity": "epic"
+    },
+    {
+        "type": "item",
+        "name": "Grebas de Hierro",
+        "slot": "legs",
+        "rarity": "rare"
+    },
+    {
+        "type": "item",
+        "name": "Manto del Sabio",
+        "slot": "cloak",
+        "rarity": "legendary"
+    }
+]
