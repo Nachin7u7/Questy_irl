@@ -2,12 +2,17 @@ body {
     margin: 0;
     padding: 0;
     background-image: url('elwynn.jpg');
-    background-size: 100% 100%;
+    background-size: cover;
+    /* Cubre toda la pantalla */
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Fija el fondo */
     font-family: Arial, sans-serif;
     color: black;
     min-height: 100vh;
+    overflow: hidden;
+    /* Evita el scroll en el body */
 }
 
 .container {
@@ -20,6 +25,29 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     position: relative;
+    overflow-y: auto;
+    /* Permite el scroll dentro del contenedor */
+    max-height: 90vh;
+    /* Limita la altura del contenedor al 90% de la pantalla */
+    margin-top: 5vh;
+    /* Centra verticalmente el contenedor */
+    margin-bottom: 5vh;
+    /* Centra verticalmente el contenedor */
+}
+
+/* Oculta la barra de scroll en navegadores WebKit (Chrome, Safari, Opera) */
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Oculta la barra de scroll en Firefox */
+.container {
+    scrollbar-width: none;
+}
+
+/* Oculta la barra de scroll en IE/Edge */
+.container {
+    -ms-overflow-style: none;
 }
 
 .container h1 {
@@ -44,7 +72,8 @@ body {
 }
 
 #missions-list p em {
-    color: #555;
+    /* color: #555; */
+    color: rgba(255, 255, 255, 0.5);
     font-style: italic;
 }
 
@@ -70,7 +99,9 @@ body {
 
 .mission .mission-reward {
     margin-left: 20px;
-    color: #FFD700;
+    color: white;
+    /*#FFD700;*/
+    text-align: center;
 }
 
 .mission-buttons {
@@ -335,4 +366,59 @@ body {
 
 .reset-button:active {
     background-color: #cc3700;
+}
+
+pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Estilos para el botón de comprimir/expandir */
+.mission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mission-header .toggle-button {
+    background: none;
+    border: none;
+    color: #4CAF50;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.mission-header .toggle-button:hover {
+    color: #45a049;
+}
+
+.mission-content {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+}
+
+.mission-content.collapsed {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    /* Ocultar el contenido completamente */
+}
+
+.mission-content.expanded {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    /* Mostrar el contenido completo */
 }

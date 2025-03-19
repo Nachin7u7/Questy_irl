@@ -226,8 +226,19 @@ function updateUI() {
 
         const missionElement = document.createElement('div');
         missionElement.className = 'mission';
-        missionElement.innerHTML = `
+
+        // Header de la misión (nivel, título y botón de comprimir/expandir)
+        const missionHeader = document.createElement('div');
+        missionHeader.className = 'mission-header';
+        missionHeader.innerHTML = `
             <p><strong>[${character.level}] ${mission.name}</strong></p>
+            <button class="toggle-button">${mission.collapsed ? '[+]' : '[-]'}</button>
+        `;
+
+        // Contenido de la misión (descripción, recompensa y botones)
+        const missionContent = document.createElement('div');
+        missionContent.className = `mission-content ${mission.collapsed ? 'collapsed' : 'expanded'}`;
+        missionContent.innerHTML = `
             <p class="mission-description">${parseTextToHTML(mission.description)}</p>
             <p class="mission-reward"><em>Recompensa: ${rewardText}</em></p>
             <div class="mission-buttons">
@@ -235,22 +246,20 @@ function updateUI() {
                 <button class="complete-button" data-index="${index}">Completar</button>
             </div>
         `;
+
+        // Agregar header y contenido al elemento de la misión
+        missionElement.appendChild(missionHeader);
+        missionElement.appendChild(missionContent);
         missionsList.appendChild(missionElement);
-    });
 
-    // Evento para el botón de abandonar
-    document.querySelectorAll('.abandon-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const index = button.getAttribute('data-index');
-            abandonMission(index);
-        });
-    });
-
-    // Evento para el botón de completar
-    document.querySelectorAll('.complete-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const index = button.getAttribute('data-index');
-            completeMission(index);
+        // Evento para comprimir/expandir la misión
+        const toggleButton = missionHeader.querySelector('.toggle-button');
+        toggleButton.addEventListener('click', () => {
+            mission.collapsed = !mission.collapsed; // Cambiar el estado
+            missionContent.classList.toggle('collapsed');
+            missionContent.classList.toggle('expanded');
+            toggleButton.textContent = mission.collapsed ? '[+]' : '[-]';
+            saveState(); // Guardar el estado después de cambiar
         });
     });
 
@@ -286,6 +295,20 @@ function updateUI() {
         }
     }
 
+    document.querySelectorAll('.abandon-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = button.getAttribute('data-index');
+            abandonMission(index);
+        });
+    });
+
+    document.querySelectorAll('.complete-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = button.getAttribute('data-index');
+            completeMission(index);
+        });
+    });
+
     document.querySelectorAll('.unequip-button').forEach(button => {
         button.addEventListener('click', () => {
             const slot = button.getAttribute('data-slot');
@@ -315,7 +338,8 @@ submitMissionButton.addEventListener('click', () => {
     if (missionName) {
         const reward = getRandomReward();
         missions.push({
-            name: missionName, description: missionDescription, reward
+            name: missionName, description: missionDescription, reward,
+            collapsed: true
         });
 
         updateUI();

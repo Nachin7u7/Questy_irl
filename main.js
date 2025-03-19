@@ -5,19 +5,25 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 800, // Ancho inicial (se ignorará si la ventana está maximizada)
+        height: 600, // Alto inicial (se ignorará si la ventana está maximizada)
+        maximized: true, // Abrir la ventana maximizada
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), // Ruta al archivo preload.js
             contextIsolation: true, // Asegura que el contexto esté aislado
             enableRemoteModule: false, // Desactiva el módulo remoto por seguridad
         },
-        icon: path.join(__dirname, 'questy_logo.png'),
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, 'questy_logo.png'), // Icono de la aplicación
+        // icon: path.join(__dirname, 'icon.ico') // Si usas Windows, puedes especificar un icono .ico
     });
 
+    // Quitar la barra de menú
+    mainWindow.setMenu(null);
+
+    mainWindow.maximize();
+
     mainWindow.loadFile('index.html');
-    mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo
+    // mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo (opcional)
 }
 
 // Manejar la solicitud de diálogo desde el renderizador
